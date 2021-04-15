@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-2 col-sm-12 col-xs-12">
               
-    <div>你选择的是：{{ selected}}</div>
+    <div>你选择的是：{{ selectedvalue }}</div>
             </div>
           </div>
         </q-card-section>
@@ -1190,7 +1190,8 @@ export default {
   data() {
     return {
       deptsOption: [],
-      selected: null
+      selected: null,
+      selectedvalue: null
     };
   },
   mounted(){
@@ -1202,9 +1203,9 @@ export default {
   methods: {
     handleDeptIdChange(v) {
       if (v) {
-        this.selected = v;
+        this.selectedvalue = v;
       } else {
-        this.selected = null;
+        this.selectedvalue = null;
       }
     }
   }
