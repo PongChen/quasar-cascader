@@ -86,11 +86,8 @@ export default {
     cascaderone (f) {
       this.displayvalue = f[this.optlabel]
       this.selectmodel = f[this.optvalue]
-      EventBus.$emit('changemodel', [this.displayvalue, this.selectmodel])
+      EventBus.$emit('change', [this.displayvalue, this.selectmodel])
     //   console.log('CascaderPanel click', f)
-    },
-    emit () {
-      this.$emit('changemodel', [this.displayvalue, this.selectmodel])
     }
   }
 }

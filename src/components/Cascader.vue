@@ -32,42 +32,21 @@
 </template>
 
 <script>
-import Item from './Item'
+import Item from "./Item";
 
-import { EventBus } from './eventbus'
-let result = []
-function find (arr, fn, result) {
-  // arr.forEach(item => {
-  //   if (item.children) {
-  //     if (fn(item)) {
-  //       result.push(item)
-  //     }
-  //     find(item.children, fn, result)
-  //   } else {
-  //     if (fn(item)) {
-  //       result.push(item)
-  //     }
-  //   }
-  // })
-  arr.forEach(item => {
-    if (item.children) {
-      find(item.children, fn, result)
-    }
-    if (fn(item)) {
-      result.push(item)
-    }
-  })
-}
+import { EventBus } from "./eventbus";
+
 export default {
-  name: 'Cascader',
+  name: "Cascader",
   components: {
     Item
   },
-  data () {
+  data() {
     return {
       displayvalue: null,
-      model: null
-    }
+      model: null,
+      result: []
+    };
   },
   computed: {},
   props: {
@@ -81,15 +60,15 @@ export default {
     },
     label: {
       type: String,
-      default: () => ''
+      default: () => ""
     },
     optvalue: {
       type: String,
-      default: () => ''
+      default: () => ""
     },
     optlabel: {
       type: String,
-      default: () => ''
+      default: () => ""
     },
     dense: {
       type: Boolean,
@@ -106,65 +85,70 @@ export default {
   },
   watch: {
     options: {
-      handler: function (newVal, oldVal) {
+      handler: function(newVal, oldVal) {
         if (newVal.length > 0 && this.selected) {
-          find(this.options, item => {
-            return item.id === this.selected
-          }, result)
-          if (result.length > 0) {
-            this.model = result[0][this.optlabel]
+          this.find(this.options);
+          if (this.result.length > 0) {
+            this.model = this.result[0][this.optlabel];
           }
         }
-        // this.onReady()
       }
     },
     selected: {
-      handler: function (newVal, oldVal) {
+      handler: function(newVal, oldVal) {
         if (newVal && this.options.length > 0) {
-          find(this.options, item => {
-            return item.id === this.selected
-          }, result)
-          if (result.length > 0) {
-            this.model = result[0][this.optlabel]
+          this.find(this.options);
+          if (this.result.length > 0) {
+            this.model = this.result[0][this.optlabel];
           }
         }
-        // this.onReady()
       }
     }
   },
-  created () {
-    result = []
+  created() {
   },
-  mounted () {
-    EventBus.$on('changemodel', (msg) => {
-      this.model = msg[0]
-      this.$emit('changemodel', msg[1])
-    })
-     if (this.selected && this.options.length > 0) {
-          find(this.options, item => {
-            return item.id === this.selected
-          }, result)
-          if (result.length > 0) {
-            this.model = result[0][this.optlabel]
-          }
-        }
+  mounted() {
+    EventBus.$on("change", msg => {
+      this.model = msg[0];
+      this.$emit("change", msg[1]);
+    });
+    if (this.selected && this.options.length > 0) {
+      this.find(this.options);
+      if (this.result.length > 0) {
+        this.model = this.result[0][this.optlabel];
+      }
+    }
   },
-  beforeDestroy () {
+  beforeDestroy() {
     // eventbus 陷阱
     // TODO 如果一个页面有多个本组件，其中一个销毁若关闭监听，会导致其他组件事件监听失效
-    EventBus.$off()
-    // EventBus.$off('changemodel')
+    EventBus.$off();
+    // EventBus.$off('change')
   },
   methods: {
-    setcascader (s) {
-      this.model = s
+    find(arr) {
+      arr.forEach(item => {
+        if (item.children) {
+          this.find(item.children);
+        }
+        console.log(item.name);
+        if (this.judge(item)) {
+          this.result.push(item);
+        }
+      });
     },
-    clearcascader () {
-      this.model = null
-      this.$emit('changemodel', this.model)
+    judge(item) {
+      return item[this.optvalue] === this.selected;
+    },
+    setcascader(s) {
+      this.model = s;
+    },
+    clearcascader() {
+      this.model = null;
+      this.$emit("change", this.model);
       //   this.dataForm.type = null
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped></style>

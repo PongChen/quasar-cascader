@@ -12,8 +12,8 @@
       :options="deptsOption"
       optlabel="name"
       optvalue="id"
-      :selected="63"
-      @changemodel="handleDeptIdChange"
+      :selected="selected"
+      @change="handleDeptIdChange"
     ></Cascader>
             </div>
             <div class="col-md-2 col-sm-12 col-xs-12">
@@ -1189,9 +1189,15 @@ export default {
   components: { Cascader },
   data() {
     return {
-      deptsOption: data,
+      deptsOption: [],
       selected: null
     };
+  },
+  mounted(){
+    setTimeout(() => {
+      this.deptsOption = data
+      this.selected = 63
+    }, 200);
   },
   methods: {
     handleDeptIdChange(v) {

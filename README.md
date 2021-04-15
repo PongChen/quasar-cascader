@@ -17,20 +17,10 @@ quasar dev
 npm run lint
 ```
 
-### props
-```
-    options: 数据集合
-    selected: 默认显示的value值
-    label: 标题
-    optvalue: 绑定的value
-    optlabel: 需要显示的字段名称
-    dense: 大小
-    important: label标红
-    readonly: 只读
+### Build the app for production
+```bash
+quasar build
 ```
 
-### demo view
-
-![image](https://user-images.githubusercontent.com/21305978/114697577-a9fff300-9d50-11eb-905d-10253fe9d7ce.png)
-
-
+### Customize the configuration
+See [Configuring quasar.conf.js](https://v1.quasar.dev/quasar-cli/quasar-conf-js).
