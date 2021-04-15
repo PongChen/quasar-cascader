@@ -25,4 +25,5 @@ quasar dev
 ```
 
 ### demo view
-![image](https://user-images.githubusercontent.com/21305978/114803820-c6447400-9dd2-11eb-9d79-d1918130cecc.png)
+![GIF](https://user-images.githubusercontent.com/21305978/114809386-ab76fd00-9ddc-11eb-86fc-0bafc8e0a4d8.gif)
+
