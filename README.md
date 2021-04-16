@@ -1,6 +1,6 @@
 # Quasar App (quasar-cascader)
 
-A Quasar Framework app
+Base Quasar Framework app
 
 ## Install the dependencies
 ```bash
@@ -11,7 +11,22 @@ npm install
 ```bash
 quasar dev
 ```
+### Use as component in quasar
+```
+npm i quasar-cascader
 
+import Cascader from "quasar-cascader"
+
+<Cascader
+  ref="wt"
+  label="部门"
+  :options="deptsOption"
+  optlabel="name"
+  optvalue="id"
+  :selected="selected"
+  @change="handleDeptIdChange"
+></Cascader>
+```
 ### props
 ```
     options:数据集合
